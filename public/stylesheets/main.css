@@ -1,0 +1,23 @@
+.thumbnail img{
+    width: 100%;
+}
+
+.thumbnail{
+    padding: 0;
+}
+
+.delete-form {
+    display: inline;
+}
+
+.flash {
+    position: fixed;
+    top: 60px;
+    left: 10%;
+    right: 10%;
+    z-index: 2;
+    border: 1px solid grey;
+    opacity: 0.8;
+}
+
+
