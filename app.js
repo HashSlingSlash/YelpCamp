@@ -16,7 +16,7 @@ const commentRoutes    = require("./routes/comments"),
       indexRoutes      = require("./routes/index");
 
 require('dotenv').config();
-mongoose.connect("mongodb+srv://mdphaneuf:" + process.env.DB_PASS + "@cluster0-h6whz.mongodb.net/yelp_camp?retryWrites=true&w=majority", 
+mongoose.connect("mongodb+srv://mdphaneuf:" + process.env.DB_PASS + "@yelpcamp.h6whz.mongodb.net/yelp_camp?retryWrites=true&w=majority", 
 { useUnifiedTopology: true, useNewUrlParser: true }).then(() =>{
   console.log("Connected to DB!");
 }).catch(err =>{
