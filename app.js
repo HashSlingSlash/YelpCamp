@@ -15,7 +15,13 @@ const commentRoutes    = require("./routes/comments"),
       campgroundRoutes = require("./routes/campgrounds"),
       indexRoutes      = require("./routes/index");
 
-mongoose.connect("mongodb://localhost:27017/yelp_camp", { useUnifiedTopology: true, useNewUrlParser: true });
+require('dotenv').config();
+mongoose.connect("mongodb+srv://mdphaneuf:" + process.env.DB_PASS + "@cluster0-h6whz.mongodb.net/<dbname>?retryWrites=true&w=majority", 
+{ useUnifiedTopology: true, useNewUrlParser: true }).then(() =>{
+  console.log("Connected to DB!");
+}).catch(err =>{
+  console.log("ERROR:", err.message);
+});
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 mongoose.set('useUnifiedTopology', true);
