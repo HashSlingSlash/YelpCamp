@@ -16,7 +16,7 @@ const commentRoutes    = require("./routes/comments"),
       indexRoutes      = require("./routes/index");
 
 require('dotenv').config();
-mongoose.connect(process.env.DATABASE_URL,
+mongoose.connect(process.env.DATABASE_URL, 
 { useUnifiedTopology: true, useNewUrlParser: true }).then(() =>{
   console.log("Connected to DB!");
 }).catch(err =>{
