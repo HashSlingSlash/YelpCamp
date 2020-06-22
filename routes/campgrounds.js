@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const Campground = require("../models/campground");
 const middleware = require("../middleware");
+const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding');
+const geocodingClient = mbxGeocoding({ accessToken: process.env.MAPBOX_KEY });
 
 //Index
 router.get("/", (req, res) =>{
@@ -39,18 +41,37 @@ router.post("/", middleware.isLoggedIn, (req, res) =>{
     const price = req.body.price;
     const image = req.body.image;
     const desc = req.body.description;
+    const location = req.body.location;
     const author = {
         id: req.user._id,
         username: req.user.username
     };
-    const newCampground = {name: name, price: price, image: image, description: desc, author: author};
-    Campground.create(newCampground, (err, newCamp) =>{
-        if(err){
-            console.log(err);
-        } else{
-            res.redirect("/campgrounds");
-        }
-    });
+    geocodingClient.forwardGeocode({
+        query: location,
+        limit: 1
+      })
+        .send()
+        .then(response => {
+          const match = response.body;
+          let lng = match.features[0].center[0];
+          let lat = match.features[0].center[1];
+          const newCampground = {name: name, price: price, image: image, description: desc, location: location,
+            lat: lat, lng: lng, author: author};
+          Campground.create(newCampground, (err, newCamp) =>{
+              if(err){
+                  req.flash("error", "Something went wrong");
+                  res.redirect("back");
+              } else{
+                  req.flash("success", "Campground added successfully!");
+                  res.redirect("/campgrounds");
+              }
+          });
+        }, error =>{
+            if(error){
+                req.flash("error", "Location not found, please try again");
+                res.redirect("back");
+            }
+        });
 });
 
 //New
