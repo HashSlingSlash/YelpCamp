@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express        = require("express"),
       app            = express(),
       bodyParser     = require("body-parser"),
@@ -15,7 +16,6 @@ const commentRoutes    = require("./routes/comments"),
       campgroundRoutes = require("./routes/campgrounds"),
       indexRoutes      = require("./routes/index");
 
-require('dotenv').config();
 mongoose.connect(process.env.DATABASE_URL, 
 { useUnifiedTopology: true, useNewUrlParser: true }).then(() =>{
   console.log("Connected to DB!");

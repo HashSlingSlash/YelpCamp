@@ -5,16 +5,24 @@
         <div style="width: 30%; margin: 25px auto;">
             <form action="/campgrounds" method="POST">
                 <div class="form-group">
-                    <input class="form-control" type="text" name="name" placeholder="name">
+                    <label for="name">Name</label>
+                    <input class="form-control" type="text" name="name" placeholder="name" id="name">
                 </div>
                 <div class="form-group">
-                    <input class="form-control" type="number" name="price" placeholder="price" min="0.01" step="0.01">
+                    <label for="price">Price (USD)</label>
+                    <input class="form-control" type="number" name="price" placeholder="price" min="0.01" step="0.01" id="price">
                 </div>
                 <div class="form-group">
-                    <input class="form-control" type="text" name="image" placeholder="image url">
+                    <label for="image">Image URL</label>
+                    <input class="form-control" type="text" name="image" placeholder="image url" id="image">
                 </div>
                 <div class="form-group">
-                    <input class="form-control" type="text" name="description" placeholder="description">
+                    <label for="description">Description</label>
+                    <input class="form-control" type="text" name="description" placeholder="description" id="description">
+                </div>
+                <div class="form-group">
+                    <label for="location">Location</label>
+                    <input class="form-control" type="text" name="location" id="location" placeholder="Yosemite National Park, CA">
                 </div>
                 <div class="form-group">
                     <button class="btn btn-lg btn-default btn-block btn-primary">Submit!</button>
