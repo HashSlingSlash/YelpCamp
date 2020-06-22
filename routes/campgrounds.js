@@ -5,15 +5,32 @@ const middleware = require("../middleware");
 
 //Index
 router.get("/", (req, res) =>{
-    Campground.find({}, (err, campgrounds) =>{
-        if(err || !campgrounds){
-            console.log(err);
-            req.flash("error", "Something went wrong");
-            res.redirect("back");
-        } else{
-            res.render("campgrounds/index", {campgrounds: campgrounds, page: "campgrounds"});
-        }
-    });
+    if(req.query.search){
+        const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+        Campground.find({name: regex}, (err, campgrounds) =>{
+            if(err || !campgrounds){
+                console.log(err);
+                req.flash("error", "Something went wrong");
+                res.redirect("back");
+            } else{
+                if(campgrounds.length === 0){
+                    req.flash("error", "No campgrounds match your search");
+                    return res.redirect("back");
+                }
+                res.render("campgrounds/index", {campgrounds: campgrounds, page: "campgrounds"});
+            }
+        });
+    } else{
+        Campground.find({}, (err, campgrounds) =>{
+            if(err || !campgrounds){
+                console.log(err);
+                req.flash("error", "Something went wrong");
+                res.redirect("back");
+            } else{
+                res.render("campgrounds/index", {campgrounds: campgrounds, page: "campgrounds"});
+            }
+        });
+    }
 });
 
 //Create
@@ -83,5 +100,8 @@ router.delete("/:id", middleware.checkCampgroundOwnership, async(req, res) => {
     }
   });
 
+function escapeRegex(text) {
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+};
 
 module.exports = router;
