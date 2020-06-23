@@ -114,6 +114,7 @@ router.delete("/:id", middleware.checkCampgroundOwnership, async(req, res) => {
     try {
       let foundCampground = await Campground.findById(req.params.id);
       await foundCampground.remove();
+      req.flash("Success", "Campground removed successfully");
       res.redirect("/campgrounds");
     } catch (error) {
       console.log(error.message);

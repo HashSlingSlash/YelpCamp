@@ -16,6 +16,9 @@ router.get("/register", (req, res) =>{
 //handle sign up logic
 router.post("/register", (req, res) =>{
     const newUser = new User({username: req.body.username});
+    if(req.body.adminKey === "secret"){
+        newUser.isAdmin = true;
+    }
     User.register(newUser, req.body.password, (err, user) =>{
         if(err){
             return res.render("register", {"error": err.message});
