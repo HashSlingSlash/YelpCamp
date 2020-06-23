@@ -34,6 +34,7 @@ app.use(flash());
 
 
 //seedDB(); //seed the database
+app.locals.moment = require('moment');
 
 app.use(require("express-session")({
     secret: "There are no shortcuts to any place worth going to!",
