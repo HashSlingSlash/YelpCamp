@@ -45,11 +45,11 @@ html {
     opacity: 0.8;
 }
 
-.login-header{
+.form-header{
     text-align: center;
 }
 
-.login-form{
+.info-form{
     width: 30%; 
     margin: 25px auto;
 }
@@ -73,3 +73,10 @@ html {
     text-align: center;
 }
 
+.form-inline{
+  justify-content: center;
+}
+
+#camp-search{
+  width: 14rem;
+}

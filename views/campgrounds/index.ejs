@@ -10,8 +10,8 @@
             <p>
                 <form action="/campgrounds" method="GET" class="form-inline">
                     <div class="form-group">
-                        <input class="form-control" type="text" name="search" placeholder="Search for a campground...">
-                        <input class="btn btn-default" type="submit" value="Search">
+                        <input id="camp-search" class="form-control mr-1" type="text" name="search" placeholder="Search for a campground...">
+                        <input class="btn btn-light" type="submit" value="Search">
                     </div>
                 </form>
             </p>
@@ -20,15 +20,13 @@
 
     <div class="row text-center" style="display:flex; flex-wrap: wrap;">
         <% campgrounds.forEach((campground) => { %>
-            <div class="col-md-3 col-sm-6">
-                <div class="thumbnail">
-                    <img src="<%= campground.image %>" alt="">
-                    <div class="caption">
-                        <h4><%= campground.name %></h4>
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-4"> 
+                <div class="card">
+                    <img src="<%= campground.image %>" class="card-img-top" alt="<%= campground.name %>">
+                    <div class="card-body">
+                      <h5 class="card-title"><%= campground.name %></h5>
+                      <a href="/campgrounds/<%= campground._id %>" class="btn btn-primary">More Info</a>
                     </div>
-                    <p>
-                        <a href="/campgrounds/<%= campground._id %>" class="btn btn-primary">More Info</a>
-                    </p>
                 </div>
             </div>
         <% }) %>

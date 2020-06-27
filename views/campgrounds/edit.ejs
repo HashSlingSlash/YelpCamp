@@ -1,8 +1,10 @@
 <%- include("../partials/header") %>
 
     <div class="row">
-        <h1 style="text-align: center;">Edit <%= campground.name %></h1>
-        <div style="width: 30%; margin: 25px auto;">
+        <div class="col-md-12">
+            <h1 class="form-header">Edit <%= campground.name %></h1>
+        </div>
+        <div class="info-form">
             <form action="/campgrounds/<%= campground._id %>?_method=PUT" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="name">Campground Name</label>
