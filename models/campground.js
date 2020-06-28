@@ -23,15 +23,37 @@ const campgroundSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: "Comment"
         }
-    ]
+    ],
+    reviews: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Review"
+        }
+    ],
+    rating: {
+        type: Number,
+        default: 0
+    }
 });
 
 campgroundSchema.pre("remove", async function(){
-    await Comment.deleteMany({
-        _id: {
-            $in: this.comments
+    try{
+        await Comment.deleteMany({
+            _id: {
+                $in: this.comments
+            }
+        });
+        await Review.deleteMany({
+            _id: {
+                $in: this.reviews
+            }
+        });
+    } catch(err){
+        if(err){
+            req.flash("error", "Something went wrong");
+            return res.redirect("back");
         }
-    });
+    }
 });
 
 module.exports = mongoose.model("Campground", campgroundSchema);

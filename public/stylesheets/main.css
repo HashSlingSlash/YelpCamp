@@ -80,3 +80,7 @@ html {
 #camp-search{
   width: 14rem;
 }
+
+.checked {
+  color: orange;
+}

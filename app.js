@@ -14,7 +14,8 @@ const express        = require("express"),
 
 const commentRoutes    = require("./routes/comments"),
       campgroundRoutes = require("./routes/campgrounds"),
-      indexRoutes      = require("./routes/index");
+      indexRoutes      = require("./routes/index"),
+      reviewRoutes     = require("./routes/reviews");
 
 mongoose.connect(process.env.DATABASE_URL, 
 { useUnifiedTopology: true, useNewUrlParser: true }).then(() =>{
@@ -57,6 +58,7 @@ app.use((req, res, next) =>{
 app.use("/", indexRoutes);
 app.use("/campgrounds/:id/comments", commentRoutes);
 app.use("/campgrounds", campgroundRoutes);
+app.use("/campgrounds/:id/reviews", reviewRoutes);
 
 
 

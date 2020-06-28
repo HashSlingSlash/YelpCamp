@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Campground = require("../models/campground");
+const Review = require("../models/review");
 const middleware = require("../middleware");
 const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding');
 const geocodingClient = mbxGeocoding({ accessToken: process.env.MAPBOX_KEY });
@@ -110,7 +111,10 @@ router.get("/new", middleware.isLoggedIn, (req, res) =>{
 
 //Show
 router.get("/:id", (req, res) =>{
-    Campground.findById(req.params.id).populate("comments").exec((err, foundCamp) =>{
+    Campground.findById(req.params.id).populate("comments").populate({
+        path: "reviews",
+        options: {sort: {createdAt: -1}}
+    }).exec((err, foundCamp) =>{
         if(err || !foundCamp){
             req.flash("error", "Campground not found");
             res.redirect("back");
@@ -129,6 +133,7 @@ router.get("/:id/edit", middleware.checkCampgroundOwnership, (req, res) =>{
 
 //Update
 router.put("/:id", middleware.checkCampgroundOwnership, upload.single('image'), (req, res) =>{
+    delete req.body.campground.rating;
     Campground.findById(req.params.id, async (err, campground) =>{
         if(err){
             req.flash("error", err.message);
