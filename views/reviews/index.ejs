@@ -6,7 +6,7 @@
             <h1 class="form-header">Review Page: <%= campground.name %></h1>
         </div>
         <div class="info-form col-md-12">
-            <div class="card">
+            <div class="card bg-light">
                 <div class="card-body">
                     <% if (campground.rating === 0) { %>
                     <h5>
@@ -25,9 +25,8 @@
                         Current campground rating: <strong><%= campground.rating.toFixed(2) %></strong>
                     </p>
                     <p><h4>All reviews for this campground:</h4></p>
-                    <hr class="mt-0">
                     <% campground.reviews.forEach((review) =>{ %>
-                        <div class="card">
+                        <div class="card my-3">
                             <div class="card-body">
                                     <%- '<span class="fa fa-star checked"></span>'.repeat(review.rating) %><%- '<span class="fa fa-star"></span>'.repeat(5 - review.rating) %>
                                     <div>Review by: <strong><%= review.author.username %></strong></div>
@@ -44,7 +43,6 @@
                                     <% } %>
                             </div>
                         </div>
-                    <hr>
                     <% }); %>
                     <% } %>
                     <div>
